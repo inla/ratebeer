@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: true,
                        length: { minimum: 3, maximum: 30 }
   validates :password, length: { minimum: 4 }
-                       format: { with: /[A-Z].*\d|\d.*[A-Z]/,
-                       message: "must contain one capital letter and number" }
+                    #    format: { with: /[A-Z].*\d|\d.*[A-Z]/,
+                    #    message: "must contain one capital letter and number" }
 
   def to_s
       username.to_s
