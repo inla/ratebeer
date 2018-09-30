@@ -156,7 +156,7 @@ Metrics/LineLength:
   Enabled: false
 
 Metrics/MethodLength:
-  Enabled: true
+  Enabled: false
 
 Metrics/ParameterLists:
   Enabled: false

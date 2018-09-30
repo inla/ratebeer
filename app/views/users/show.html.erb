@@ -5,7 +5,10 @@
 </h3>
 
 <p>
- Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %>
+ Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %> <br>
+ <%= "Favorite beer is #{@user.favorite_beer}"%><br>
+ <%= "Favorite style of beer is #{@user.favorite_style}"%><br>
+ <%= "Favorite brewery is #{@user.favorite_brewery}"%>
 </p>
 
 <strong>ratings</strong>

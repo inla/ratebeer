@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.1'
 
+# testikattavuus
+gem 'simplecov', require: false
 # salasana
 gem 'bcrypt', '~> 3.1.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -43,6 +45,16 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+# 
+group :development, :test do
+  gem 'rspec-rails', '~> 3.8'
+end
+
+# 
+group :test do
+  gem 'factory_bot_rails'
+end
+
 group :production do
    gem 'pg'
    gem 'rails_12factor'
@@ -69,6 +81,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'factory_bot_rails'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

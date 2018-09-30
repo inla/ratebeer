@@ -1,6 +1,7 @@
 <h2>List of ratings</h2>
 
-<p> Number of ratings: <%= @ratings.count %> </p>
+<%# <p> Number of ratings: <%= @ratings.count %> </p>
+<%= pluralize(@ratings.count, 'rating') %>
 
 <ul>
   <% @ratings.each do |rating| %>
@@ -8,4 +9,4 @@
   <% end %>
 </ul>
 
-<%= link_to 'New Rating', new_rating_path %>
+<%# <%= link_to 'New Rating', new_rating_path %>
