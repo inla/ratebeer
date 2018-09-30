@@ -5,7 +5,9 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by username: params[:username]
-    # tarkastetaan että käyttäjä olemassa, ja että salasana on oikea
+
+    # seuraava &.-operaattoria käyttävä komento tarkottaa samaa kuin
+    # user && user.authenticate(params[:password])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to user_path(user), notice: "Welcome back!"
@@ -15,9 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    # nollataan sessio
     session[:user_id] = nil
-    # uudelleenohjataan sovellus pääsivulle
     redirect_to :root
   end
 end
