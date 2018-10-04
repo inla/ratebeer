@@ -3,7 +3,7 @@ class CreateBeerClubs < ActiveRecord::Migration[5.2]
     create_table :beer_clubs do |t|
       t.string :name
       t.integer :founded
-      t.integer :city
+      t.string :city
 
       t.timestamps
     end
