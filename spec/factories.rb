@@ -12,11 +12,16 @@ FactoryBot.define do
   
     factory :beer do
       name { "anonymous" }
-      style { "Lager" } 
+      style
       brewery
     end
   
     factory :rating do
       beer
+    end
+
+    factory :style do
+      name { "anonymous" }
+      description { "description" }
     end
   end

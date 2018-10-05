@@ -4,8 +4,9 @@ include Helpers
 
 describe "Rating" do
   let!(:brewery) { FactoryBot.create :brewery, name: "Koff" }
-  let!(:beer1) { FactoryBot.create :beer, name: "iso 3", brewery: brewery }
-  let!(:beer2) { FactoryBot.create :beer, name: "Karhu", brewery: brewery }
+  let!(:style) { FactoryBot.create :style, name: "Lager" }
+  let!(:beer1) { FactoryBot.create :beer, name: "iso 3", brewery: brewery, style: style }
+  let!(:beer2) { FactoryBot.create :beer, name: "Karhu", brewery: brewery, style: style }
   let!(:user) { FactoryBot.create :user }
 
   before :each do
@@ -32,7 +33,8 @@ describe "when many ratings are given" do
 
   before :each do
     schlenkerla = FactoryBot.create :brewery, name: 'Schlenkerla' 
-    create_beer_with_rating({ user: user, style: 'Rauchbier', brewery: schlenkerla }, 20)
+    ipa = FactoryBot.create :style, name: 'IPA'
+    create_beer_with_rating({ user: user, style: ipa, brewery: schlenkerla }, 20)
     create_beer_with_rating({ user: user }, 10)
     user2 = FactoryBot.create :user, username: 'Arto'
     create_beers_with_many_ratings({ user: user2 }, 7, 9, 15)
@@ -69,7 +71,7 @@ describe "when many ratings are given" do
 
   it "favorite style and brewery are shown at users page" do 
     visit user_path(user)
-    expect(page).to have_content 'Preferred style: Rauchbier'
+    expect(page).to have_content 'Preferred style: IPA'
     expect(page).to have_content 'Favorite brewery: Schlenkerla'
   end
 end

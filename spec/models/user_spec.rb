@@ -84,17 +84,21 @@ RSpec.describe User, type: :model do
       end
 
       it "is the style of the only rated if only one rating" do
-        create_beer_with_rating({ user: user, style: 'Pale Ale' }, 25)
+        favorite = FactoryBot.create(:style, name: 'Bestest')
+        create_beer_with_rating({ user: user, style: favorite }, 25)
 
-        expect(user.favorite_style).to eq('Pale Ale')
+        expect(user.favorite_style).to eq(favorite)
       end  
       
       it "is the style of with highest average if several rated" do
-        create_beers_with_many_ratings({ user: user, style: 'Lager' }, 10, 20, 15, 7, 9)
-        create_beers_with_many_ratings({ user: user, style: 'IPA' }, 25, 45 )
-        create_beers_with_many_ratings({ user: user, style: 'Alt' }, 50, 10, 8)
+        favorite = FactoryBot.create(:style, name: 'Bestest')
+        s1 = FactoryBot.create(:style)
+        s2 = FactoryBot.create(:style)
+        create_beers_with_many_ratings({ user: user, style: s1 }, 10, 20, 15, 7, 9)
+        create_beers_with_many_ratings({ user: user, style: favorite }, 25, 45 )
+        create_beers_with_many_ratings({ user: user, style: s2 }, 50, 10, 8)
 
-        expect(user.favorite_style).to eq('IPA')
+        expect(user.favorite_style).to eq(favorite)
       end 
     end 
 

@@ -25,18 +25,18 @@ class BeermappingApi
     # "e2530b410dc9d9aceeb2bbb3a2dfa133" # "731955affc547174161dbd6f97b46538"
   end
 
-  def self.place(id)
-    place = Rails.cache.read(id)
+  def self.place(pid)
+    place = Rails.cache.read(pid)
     return place if place
 
-    place = get_place(id)
-    Rails.cache.write(id, place, expires_in: 1.day)
+    place = get_place(pid)
+    Rails.cache.write(pid, place, expires_in: 1.day)
     place
     # Rails.cache.fetch(id, expires_in: 1.day) { get_place(id) }
   end
 
-  def self.get_place(id)
-    url = "http://beermapping.com/webservice/locquery/#{key}/#{id}"
+  def self.get_place(pid)
+    url = "http://beermapping.com/webservice/locquery/#{key}/#{pid}"
     response = HTTParty.get url
     place = response.parsed_response["bmp_locations"]["location"]
     Place.new(place)
