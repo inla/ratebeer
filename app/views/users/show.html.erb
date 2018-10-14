@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"></p>
 
 <h2>
   <%= @user.username %>
@@ -30,7 +30,7 @@
  <% @user.ratings.each do |rating| %>
    <li> <%= rating %> 
       <% if @user == current_user %>
-          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
       <% end %>   
     </li>  
  <% end %>
@@ -39,5 +39,5 @@
 <% if @user == current_user %>
   <%= link_to 'Edit', edit_user_path(@user) %>
   <br>
-  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
  <% end %>

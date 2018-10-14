@@ -9,6 +9,8 @@ class Beer < ApplicationRecord
   validates :name, presence: true
   # validates :style, presence: true
 
+  # scope :top, -> {  }
+
   def average
     return 0 if ratings.empty?
 
@@ -17,5 +19,10 @@ class Beer < ApplicationRecord
 
   def to_s
     "#{name} (#{brewery.name})"
+  end
+
+  def self.top(n)
+    sorted_by_rating_in_desc_order = Beer.all.sort_by{ |b| -(b.average_rating || 0) }
+    top = sorted_by_rating_in_desc_order[0, n]
   end
 end
