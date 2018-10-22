@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   end
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
+  resources :memberships do
+    post 'toggle_confirmed', on: :member
+  end
 
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'

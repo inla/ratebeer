@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership.beer_club, notice: "#{current_user.username} welcome to the club!" }
+        format.html { redirect_to @membership.beer_club, notice: "#{current_user.username}'s application received!" }
         format.json { render :show, status: :created, location: @membership }
       else
         @clubs = BeerClub.all - current_user.beer_clubs
@@ -62,6 +62,13 @@ class MembershipsController < ApplicationController
       format.html { redirect_to @membership.user, notice: "Membership in #{@membership.beer_club.name} ended" }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_confirmed
+    membership = Membership.find(params[:id])
+    # beer_club = BeerClub.find(params[:id])
+    membership.update_attribute :confirmed, !membership.confirmed
+    redirect_to beer_club_path(membership.beer_club.id), notice: "#{membership.user.username}'s membership to #{membership.beer_club.name} confirmed"
   end
 
   private
