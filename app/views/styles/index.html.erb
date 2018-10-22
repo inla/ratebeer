@@ -1,12 +1,9 @@
-<p id="notice"></p>
-
 <h1>Styles</h1>
 
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
+      <th></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,8 +12,7 @@
     <% @styles.each do |style| %>
       <tr>
         <td><%= link_to style.name, style %></td>
-        <td><%= style.description %></td>
-        <td><%= link_to 'Edit', edit_style_path(style) %></td>
+        <td><%= link_to 'Edit', edit_style_path(style), class:"btn btn-warning" %></td>
         <td><%= link_to 'Destroy', style, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
       </tr>
     <% end %>
@@ -25,4 +21,4 @@
 
 <br>
 
-<%= link_to 'New Style', new_style_path %>
+<%= link_to 'New Style', new_style_path, class:"btn btn-primary" %>

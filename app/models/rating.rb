@@ -6,7 +6,7 @@ class Rating < ActiveRecord::Base
                                     less_than_or_equal_to: 50,
                                     only_integer: true }
 
-  scope :recent, -> { order(:updated_at).last(5) } # created_at
+  scope :recent, -> { order(:updated_at).limit(5) } # created_at
 
   def to_s
     "#{beer.name} #{score}"

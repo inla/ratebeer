@@ -2,14 +2,12 @@ class Beer < ApplicationRecord
   belongs_to :brewery
   belongs_to :style
   has_many :ratings, dependent: :destroy
-  has_many :raters, -> { uniq }, through: :ratings, source: :user
+  has_many :raters, -> { distinct }, through: :ratings, source: :user
 
   include RatingAverage
 
   validates :name, presence: true
-  # validates :style, presence: true
-
-  # scope :top, -> {  }
+  validates :style, presence: true
 
   def average
     return 0 if ratings.empty?
@@ -18,11 +16,11 @@ class Beer < ApplicationRecord
   end
 
   def to_s
-    "#{name} (#{brewery.name})"
+    "#{name} #{brewery.name}"
   end
 
-  def self.top(n)
-    sorted_by_rating_in_desc_order = Beer.all.sort_by{ |b| -(b.average_rating || 0) }
-    top = sorted_by_rating_in_desc_order[0, n]
+  def self.top(how_many)
+    sorted_by_rating_in_desc_order = all.sort_by{ |b| -(b.average_rating || 0) }
+    sorted_by_rating_in_desc_order[0, how_many]
   end
 end

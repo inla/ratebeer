@@ -1,8 +1,13 @@
-<p id="notice"></p>
-
 <h2>
   <%= @user.username %>
+  <% if @user.closed  %>
+    <span class="badge badge-info">account closed</span>
+  <% end %>
 </h2>
+
+<% if current_user_is_admin %>
+ <%= link_to (@user.closed ? 'open account' : 'close account'), toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+<% end %>
 
 <% if @user.ratings.empty? %>
   <p>has not rate any beer</p>
@@ -10,10 +15,34 @@
   <p>
     Has made <%= pluralize(@user.ratings.count, 'rating') %>, average rating <%= @user.average_rating %>
   </p> 
-  <p>Favorite beer: <%= @user.favorite_beer.name %></p>
-  <p>Favorite brewery: <%= @user.favorite_brewery.name %></p>
-  <p>Preferred style: <%= @user.favorite_style %></p>
+
+  <div class="row">
+    <div class="col-4 col-sm-6">
+      Favorite beer:
+    </div>
+    <div class="col-4 col-sm-6">
+      <%= @user.favorite_beer.name %>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="col-4 col-sm-6">
+      Favorite brewery:
+    </div>
+    <div class="col-4 col-sm-6">
+      <%= @user.favorite_brewery.name %>
+    </div>
+  </div>  
+  <div class="row">
+    <div class="col-4 col-sm-6">
+      Preferred style:
+    </div>
+    <div class="col-4 col-sm-6">
+      <%= @user.favorite_style.name %>
+    </div>  
+  </div>      
 <% end %>
+
+<br>
 
 <p>
   <% if @user.beer_clubs.any? %>
@@ -22,7 +51,7 @@
       <li> <%= link_to club.name, club %> </li>
     <% end %>
   <% end %>
-</pp>
+</p>
 
 <h3>ratings</h3>
 

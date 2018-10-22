@@ -28,30 +28,27 @@ class User < ApplicationRecord
   end
 
   def favorite_style
-    return nil if ratings.empty?
-
-    style_ratings = ratings.group_by{ |r| r.beer.style }
-    averages = style_ratings.map do |style, ratings|
-      { style: style, score: average_of(ratings) }
-    end
-
-    averages.max_by{ |r| r[:score] }[:style]
+    favorite(:style)
   end
 
   def favorite_brewery
-    return nil if ratings.empty?
-
-    style_ratings = ratings.group_by{ |r| r.beer.brewery }
-    averages = style_ratings.map do |brewery, ratings|
-      { brewery: brewery, score: average_of(ratings) }
-    end
-
-    averages.max_by{ |r| r[:score] }[:brewery]
+    favorite(:brewery)
   end
 
-  def self.top(n)
-    sorted_by_rating_in_desc_order = User.all.sort_by{ |b| -(b.average_rating || 0) }
-    top = sorted_by_rating_in_desc_order[0, n]
+  def favorite(groupped_by)
+    return nil if ratings.empty?
+
+    grouped_ratings = ratings.group_by{ |r| r.beer.send(groupped_by) }
+    averages = grouped_ratings.map do |group, ratings|
+      { group: group, score: average_of(ratings) }
+    end
+
+    averages.max_by{ |r| r[:score] }[:group]
+  end
+
+  def self.top(how_many)
+    sorted_by_rating_in_desc_order = all.sort_by{ |u| -u.ratings.count }
+    sorted_by_rating_in_desc_order[0, how_many]
   end
 
   def to_s

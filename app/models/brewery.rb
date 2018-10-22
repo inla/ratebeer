@@ -9,18 +9,15 @@ class Brewery < ApplicationRecord
 
   scope :active, -> { where active: true }
   scope :retired, -> { where active: [nil, false] }
-  # scope :top, -> {  }
 
   include RatingAverage
 
-  def to_s
-    name
+  def self.top(how_many)
+    sorted_by_rating_in_desc_order = all.sort_by{ |b| -(b.average_rating || 0) }
+    sorted_by_rating_in_desc_order[0, how_many]
   end
 
-  def self.top(n)
-    sorted_by_rating_in_desc_order = Brewery.all.sort_by{ |b| -(b.average_rating || 0) }
-    top = sorted_by_rating_in_desc_order[0, n]
-    # palauta listalta parhaat n kappaletta
-    # miten? ks. http://www.ruby-doc.org/core-2.5.1/Array.html
+  def to_s
+    name
   end
 end

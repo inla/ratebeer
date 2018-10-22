@@ -12,21 +12,30 @@
   <% end %>
 
   <div class="form-group row">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control" %>
+    <label for="name" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-10">
+     <%= form.text_field :name, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :founded %>
-    <%= form.number_field :founded, class: "form-control" %>
+  <div class="form-group row">
+    <label for="founded" class="col-sm-2 col-form-label">Founded</label>
+    <div class="col-sm-10">
+      <%= form.number_field :founded, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city, class: "form-control" %>
+  <div class="form-group row">
+    <label for="city" class="col-sm-2 col-form-label">City</label>
+    <div class="col-sm-10">
+     <%= form.text_field :city, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit class:"btn btn-primary" %>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <%= form.submit class:'btn btn-primary' %>
+    </div>
   </div>
+
 <% end %>
